@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 
 export default function InputForm() {
@@ -8,16 +9,19 @@ export default function InputForm() {
   const [pickupLocation, setPickupLocation] = useState("");
   const [contact, setContactLocation] = useState("");
 
+
   const fFoodName = (evt) => {
     setFoodName(evt.target.value);
-    console.log(foodName);
   }
   const fPickupLocation = (evt) => {
     setPickupLocation(evt.target.value);
-    console.log(pickupLocation);
   }
   const fContact = (evt) => {
     setContactLocation(evt.target.value);
+  }
+  const submitForm = (evt) => {
+    console.log(foodName);
+    console.log(pickupLocation);
     console.log(contact);
   }
   return (
@@ -35,6 +39,7 @@ export default function InputForm() {
         <TextField id="outlined-basic" label="Pickup Location" variant="outlined" onChange={fPickupLocation} value={pickupLocation} />
         <TextField id="outlined-basic" label="Contact" variant="outlined" onChange={fContact} value={contact} />
       </Box>
+      <Button onClick={submitForm} variant="contained">test</Button>
     </div>
   );
 }
