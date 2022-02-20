@@ -4,10 +4,19 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
 
+class post {
+  constructor(foodName, pickupLocation, contact, imagePath) {
+    this.foodName = foodName;
+    this.pickupLocation = pickupLocation;
+    this.contact = contact;
+    this.imagePath = imagePath;
+  }
+}
 export default function InputForm() {
   const [foodName, setFoodName] = useState("");
   const [pickupLocation, setPickupLocation] = useState("");
   const [contact, setContactLocation] = useState("");
+  const posts = [];
 
 
   const fFoodName = (evt) => {
@@ -20,9 +29,13 @@ export default function InputForm() {
     setContactLocation(evt.target.value);
   }
   const submitForm = (evt) => {
-    console.log(foodName);
-    console.log(pickupLocation);
-    console.log(contact);
+    const o = new post(foodName, pickupLocation, contact);
+    posts.push(o);
+    console.log(o);
+    // console.log(foodName);
+    // console.log(pickupLocation);
+    // console.log(contact);
+    console.log(posts);
   }
   return (
     <div>
