@@ -1,0 +1,19 @@
+.test {
+    font-size: 38px;
+}
+.page {
+    margin-right: 3%;
+    margin-left: 3%;
+}
+.topBar {
+    display: inline-block;
+}
+.search {
+    display: inline;
+}
+.title {
+    display: inline;
+}
+.new {
+    display: inline;
+}
