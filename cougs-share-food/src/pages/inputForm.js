@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
 
 
 class post {
@@ -52,7 +53,10 @@ export default function InputForm() {
         <TextField id="outlined-basic" label="Pickup Location" variant="outlined" onChange={fPickupLocation} value={pickupLocation} />
         <TextField id="outlined-basic" label="Contact" variant="outlined" onChange={fContact} value={contact} />
       </Box>
-      <Button onClick={submitForm} variant="contained">test</Button>
+      {/* <Button onClick={submitForm} variant="contained">Submit</Button> */}
+      <Button onClick={submitForm} component={Link} to="/" variant="contained" color="primary">
+        Submit
+      </Button>
     </div>
   );
 }
