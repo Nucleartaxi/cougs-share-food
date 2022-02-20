@@ -29,7 +29,7 @@ function Home() {
 
   useEffect(() => {
     getFromFirebase();
-  });
+  }, []);
 
   return (
     <div>
