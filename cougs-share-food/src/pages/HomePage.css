@@ -8,7 +8,7 @@
 }
 
 .feed {
-  margin-left: 22%;
+  margin-left: 40%;
   width: 75%;
   margin-bottom: 3%;
 }
@@ -21,9 +21,9 @@
   width: 100px;
   height: 100px;
 
-  display: inline;
+  display: inline-block;
 }
 
 .text {
-  display: inline;
+  display: inline-block;
 }

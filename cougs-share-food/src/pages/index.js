@@ -8,6 +8,7 @@ function Home() {
   // const [downloadUrl, setDownloadUrl] = useState(null);
   const [allImages, setImages] = useState([]);
   const [allTextData, setTextData] = useState([]);
+  const [allCombinedData, setAllCombinedData] = useState([]);
   const getTextData = () => {
     fireStore
       .collection("posts")
@@ -19,10 +20,9 @@ function Home() {
         });
       });
   };
-  const getFromFirebase = () => {
-    //1.
-    let storageRef = storage.ref("images");
 
+  const getFromFirebase = () => {
+    let storageRef = storage.ref("images");
     storageRef
       .listAll()
       .then(function (res) {
@@ -30,34 +30,59 @@ function Home() {
           imageRef.getDownloadURL().then((url) => {
             let imageData = {
               urlFirebase: url,
-              text: imageRef.name,
+              title: imageRef.name,
             };
             setImages((allImages) => [...allImages, imageData]);
           });
         });
-        console.log(allImages);
       })
       .catch(function (error) {
         console.log(error);
       });
   };
 
+  const combineData = () => {
+    allImages.forEach((image) => {
+      var searchData = allTextData.find(
+        (data) => data.imageName === image.title
+      );
+      let combine = {
+        urlFirebase: image.urlFirebase,
+        title: image.title,
+        food: searchData.food,
+        location: searchData.location,
+        contactInfo: searchData.contactInfo,
+        time: searchData.time,
+      };
+      setAllCombinedData((allCombinedData) => [...allCombinedData, combine]);
+    });
+  };
   useEffect(() => {
+    getFromFirebase();
     getTextData();
     console.log(allTextData);
-    getFromFirebase();
   }, []);
 
   return (
     <div className="page">
       <span>
-        <h1>Coug Share Food</h1>
-        <h2>Cougs helping prevent food waste through sharing</h2>
-        <Link to="/inputForm">
-          <Button variant="contained"> add</Button>
-        </Link>
+        <span>
+          <h1>Coug Share Food</h1>
+          <h2>Cougs helping prevent food waste through sharing</h2>
+        </span>
+        <span>
+          <Link to="/inputForm">
+            <Button variant="contained" size="large">
+              {" "}
+              Add
+            </Button>
+          </Link>
+        </span>
       </span>
-      <h2>Feed</h2>
+      <center>
+        <h2>Feed</h2>
+      </center>
+
       <div className="feed">
         {allImages.map((image) => {
           return (
@@ -69,12 +94,15 @@ function Home() {
                   width="325px"
                   height="250px"
                 />
+
                 {/* <button onClick={() => deleteFromFirebase(image)}>
                Delete
               </button> */}
               </span>
               <span className="TextDisplay">
-                <span>dynamic Text Info</span>
+                <h3>Name: {image.title}</h3>
+                <h3>Location: </h3>
+                <h3>Contact: </h3>
               </span>
             </div>
           );

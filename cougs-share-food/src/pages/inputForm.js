@@ -8,15 +8,7 @@ import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-
-// class post {
-//   constructor(foodName, pickupLocation, contact, ImagePath) {
-//     this.foodName = foodName;
-//     this.pickupLocation = pickupLocation;
-//     this.contact = contact;
-//     this.imagePath = ImagePath;
-//   }
-// }
+import "./inputForm.css";
 
 export default function InputForm() {
   const allInputs = { imgUrl: "" };
@@ -25,7 +17,7 @@ export default function InputForm() {
   const [foodName, setFoodName] = useState("");
   const [pickupLocation, setPickupLocation] = useState("");
   const [contact, setContactLocation] = useState("");
-
+  let navigate = useNavigate();
   const fFoodName = (evt) => {
     setFoodName(evt.target.value);
   };
@@ -36,7 +28,6 @@ export default function InputForm() {
     setContactLocation(evt.target.value);
   };
 
-  console.log(imageAsFile);
   const handleImageAsFile = (e) => {
     const image = e.target.files[0];
     setImageAsFile((imageFile) => image);
@@ -44,8 +35,8 @@ export default function InputForm() {
 
   const submitForm = (evt) => {
     evt.preventDefault();
-    console.log("start of upload");
     if (imageAsFile === "") {
+      alert("Picture not submited");
       console.error(`not an image, the image file is a ${typeof imageAsFile}`);
     }
 
@@ -55,11 +46,9 @@ export default function InputForm() {
     //initiates the firebase side uploading
     uploadTask.on(
       "state_changed",
-      (snapShot) => {
-        //takes a snap shot of the process as it is happening
-        console.log(snapShot);
-      },
+      (snapShot) => {},
       (err) => {
+        alert("Picture not submited");
         //catches the errors
         console.log(err);
       },
@@ -74,18 +63,25 @@ export default function InputForm() {
             setImageAsUrl((prevObject) => ({
               ...prevObject,
               imgUrl: fireBaseUrl,
+              test: "text",
             }));
           });
       }
     );
+    let Time = new Date().toLocaleTimeString();
+    if (foodName === "" || pickupLocation === "") {
+      alert("Error: Nesscary field not filled in.");
+      return;
+    }
     fireStore.collection("posts").add({
       food: foodName,
       location: pickupLocation,
       contactInfo: contact,
       imageName: imageAsFile.name,
+      timeStamp: Time.toString(),
     });
-    let navigate = useNavigate();
-    navigate.push("/");
+    let path = "/";
+    navigate(path);
   };
 
   const Input = styled("input")({
@@ -93,59 +89,69 @@ export default function InputForm() {
   });
   return (
     <div>
-      <p className="test">test text</p>
-      <Box
-        component="form"
-        sx={{
-          "& > :not(style)": { m: 1, width: "25ch" },
-        }}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField
-          id="outlined-basic"
-          label="Food Name"
-          variant="outlined"
-          onChange={fFoodName}
-          value={foodName}
-        />
-        <TextField
-          id="outlined-basic"
-          label="Pickup Location"
-          variant="outlined"
-          onChange={fPickupLocation}
-          value={pickupLocation}
-        />
-        <TextField
-          id="outlined-basic"
-          label="Contact"
-          variant="outlined"
-          onChange={fContact}
-          value={contact}
-        />
-      </Box>
-
-      <Stack>
-        <label htmlFor="icon-button-file">
-          <Input
-            accept="image/*"
-            id="icon-button-file"
-            type="file"
-            onChange={handleImageAsFile}
+      <center>
+        <h2 className="center">Guidelines For Submission</h2>
+        <p>
+          -Must not be expired, moldy, perished or otherwise bad. <br></br>-Must
+          not be partially eaten. <br></br>-Must not be open (allowed if
+          individuallly wrapped).
+        </p>
+      </center>
+      <div className="box">
+        <h1 className="Header">Extra unused food post it to the feed below</h1>
+        <Box
+          component="form"
+          sx={{
+            "& > :not(style)": { m: 1, width: "25ch" },
+          }}
+          noValidate
+          autoComplete="off"
+        >
+          <TextField
+            id="outlined-basic"
+            label="Food Name*"
+            variant="outlined"
+            onChange={fFoodName}
+            value={foodName}
           />
-          <IconButton
-            color="primary"
-            aria-label="upload picture"
-            component="span"
-            size="large"
-          >
-            <PhotoCamera size="large" />
-          </IconButton>
-        </label>
-      </Stack>
-      <Button onClick={submitForm} variant="contained" size="large">
-        Submit
-      </Button>
+          <TextField
+            id="outlined-basic"
+            label="Pickup Location*"
+            variant="outlined"
+            onChange={fPickupLocation}
+            value={pickupLocation}
+          />
+          <TextField
+            id="outlined-basic"
+            label="Contact"
+            variant="outlined"
+            onChange={fContact}
+            value={contact}
+          />
+        </Box>
+
+        <Stack>
+          <label htmlFor="icon-button-file">
+            <Input
+              accept="image/*"
+              id="icon-button-file"
+              type="file"
+              onChange={handleImageAsFile}
+            />
+            <IconButton
+              color="primary"
+              aria-label="upload picture"
+              component="span"
+              size="large"
+            >
+              <PhotoCamera size="large" />
+            </IconButton>
+          </label>
+        </Stack>
+        <Button onClick={submitForm} variant="contained" size="large">
+          Submit
+        </Button>
+      </div>
     </div>
   );
 }
