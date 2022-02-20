@@ -118,7 +118,3 @@ export default function InputForm() {
     </div>
   );
 }
-
-// function inputForm() {
-//   return <div></div>;
-// }
