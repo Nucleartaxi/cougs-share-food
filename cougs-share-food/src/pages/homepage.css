@@ -8,7 +8,7 @@
 .topBar {
     display: inline-block;
 }
-.search {
+/* .search {
     display: inline;
 }
 .title {
@@ -16,4 +16,8 @@
 }
 .new {
     display: inline;
+} */
+.myTable {
+    /* width: "100%"; */
+    text-align: center;
 }
