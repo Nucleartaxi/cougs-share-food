@@ -1,0 +1,29 @@
+.backGround {
+  background-color: silver;
+}
+
+.page {
+  margin-left: 3%;
+  margin-right: 3%;
+}
+
+.feed {
+  margin-left: 22%;
+  width: 75%;
+  margin-bottom: 3%;
+}
+.feedBox {
+  margin-top: 5%;
+  max-height: 15%;
+}
+
+.image {
+  width: 100px;
+  height: 100px;
+
+  display: inline;
+}
+
+.text {
+  display: inline;
+}

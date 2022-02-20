@@ -1,5 +1,6 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/storage";
+import "firebase/compat/firestore";
 var firebaseConfig = {
   apiKey: "AIzaSyDrffMVjWpzoR-11bVwcexhI07XcwuJXag",
   authDomain: "cougssharefood.firebaseapp.com",
@@ -11,5 +12,6 @@ var firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const storage = firebase.storage();
+const fireStore = firebase.firestore();
 
-export default storage;
+export { fireStore, storage };

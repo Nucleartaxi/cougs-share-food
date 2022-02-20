@@ -1,26 +1,41 @@
 import React, { useState, useEffect } from "react";
-import storage from "../firebase";
-
-function handleCLick() {}
+import { storage, fireStore } from "../firebase";
+import { Link } from "react-router-dom";
+import "./HomePage.css";
+import Button from "@mui/material/Button";
 
 function Home() {
+  // const [downloadUrl, setDownloadUrl] = useState(null);
   const [allImages, setImages] = useState([]);
+  const [allTextData, setTextData] = useState([]);
+  const getTextData = () => {
+    fireStore
+      .collection("posts")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((element) => {
+          var data = element.data();
+          setTextData((arr) => [...arr, data]);
+        });
+      });
+  };
   const getFromFirebase = () => {
     //1.
     let storageRef = storage.ref("images");
-    //2.
-    console.log(storageRef);
+
     storageRef
       .listAll()
       .then(function (res) {
-        //3.
         res.items.forEach((imageRef) => {
           imageRef.getDownloadURL().then((url) => {
-            //4.
-            setImages((allImages) => [...allImages, url]);
-            console.log(allImages);
+            let imageData = {
+              urlFirebase: url,
+              text: imageRef.name,
+            };
+            setImages((allImages) => [...allImages, imageData]);
           });
         });
+        console.log(allImages);
       })
       .catch(function (error) {
         console.log(error);
@@ -28,23 +43,39 @@ function Home() {
   };
 
   useEffect(() => {
+    getTextData();
+    console.log(allTextData);
     getFromFirebase();
   }, []);
 
   return (
-    <div>
-      <h1>Coug Share Food</h1>
-
-      <button onClick={handleCLick}> add</button>
-
-      <div id="photos">
+    <div className="page">
+      <span>
+        <h1>Coug Share Food</h1>
+        <h2>Cougs helping prevent food waste through sharing</h2>
+        <Link to="/inputForm">
+          <Button variant="contained"> add</Button>
+        </Link>
+      </span>
+      <h2>Feed</h2>
+      <div className="feed">
         {allImages.map((image) => {
           return (
-            <div key={image} className="image">
-              <img src={image} alt="" />
-              {/* <button onClick={() => deleteFromFirebase(image)}>
+            <div className="feedBox">
+              <span key={image} className="image">
+                <img
+                  src={image.urlFirebase}
+                  alt=""
+                  width="325px"
+                  height="250px"
+                />
+                {/* <button onClick={() => deleteFromFirebase(image)}>
                Delete
               </button> */}
+              </span>
+              <span className="TextDisplay">
+                <span>dynamic Text Info</span>
+              </span>
             </div>
           );
         })}
