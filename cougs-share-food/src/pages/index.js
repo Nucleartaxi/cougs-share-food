@@ -1,7 +1,8 @@
 import React from "react";
 import "./homepage.css";
+import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
 
-function handleCLick() {}
 
 function Home() {
   return (
@@ -19,7 +20,9 @@ function Home() {
           <p className="new">new</p>
         </div>  */}
 
-        <button onClick={handleCLick}> add</button>
+        <Button component={Link} to="/inputForm" variant="contained" color="primary">
+          New
+        </Button>
       </div>
 
     </div>
