@@ -3,6 +3,7 @@ import { storage, fireStore } from "../firebase";
 import { Link } from "react-router-dom";
 import "./HomePage.css";
 import Button from "@mui/material/Button";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
 
 function Home() {
   // const [downloadUrl, setDownloadUrl] = useState(null);
@@ -66,19 +67,24 @@ function Home() {
   return (
     <div className="page">
       <span>
-        <span>
+        <center>
           <h1>Coug Share Food</h1>
           <h2>Cougs helping prevent food waste through sharing</h2>
-        </span>
-        <span>
+        </center>
+        <center>
           <Link to="/inputForm">
-            <Button variant="contained" size="large">
+            <Button
+              variant="contained"
+              size="large"
+              endIcon={<AddCircleIcon />}
+            >
               {" "}
               Add
             </Button>
           </Link>
-        </span>
+        </center>
       </span>
+
       <center>
         <h2>Feed</h2>
       </center>
