@@ -68,7 +68,7 @@ function Home() {
     <div className="page">
       <span>
         <center>
-          <h1>Coug Share Food</h1>
+          <h1>Coug Share Foods</h1>
           <h2>Cougs helping prevent food waste through sharing</h2>
         </center>
         <center>

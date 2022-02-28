@@ -97,61 +97,63 @@ export default function InputForm() {
           individuallly wrapped).
         </p>
       </center>
-      <div className="box">
-        <h1 className="Header">Extra unused food post it to the feed below</h1>
-        <Box
-          component="form"
-          sx={{
-            "& > :not(style)": { m: 1, width: "25ch" },
-          }}
-          noValidate
-          autoComplete="off"
-        >
-          <TextField
-            id="outlined-basic"
-            label="Food Name*"
-            variant="outlined"
-            onChange={fFoodName}
-            value={foodName}
-          />
-          <TextField
-            id="outlined-basic"
-            label="Pickup Location*"
-            variant="outlined"
-            onChange={fPickupLocation}
-            value={pickupLocation}
-          />
-          <TextField
-            id="outlined-basic"
-            label="Contact"
-            variant="outlined"
-            onChange={fContact}
-            value={contact}
-          />
-        </Box>
-
-        <Stack>
-          <label htmlFor="icon-button-file">
-            <Input
-              accept="image/*"
-              id="icon-button-file"
-              type="file"
-              onChange={handleImageAsFile}
+      <center>
+        <div className="box">
+          <h1 className="Header">Extra unused food post it to the Feed</h1>
+          <Box
+            component="form"
+            sx={{
+              "& > :not(style)": { m: 1, width: "25ch" },
+            }}
+            noValidate
+            autoComplete="off"
+          >
+            <TextField
+              id="outlined-basic"
+              label="Food Name*"
+              variant="outlined"
+              onChange={fFoodName}
+              value={foodName}
             />
-            <IconButton
-              color="primary"
-              aria-label="upload picture"
-              component="span"
-              size="large"
-            >
-              <PhotoCamera size="large" />
-            </IconButton>
-          </label>
-        </Stack>
-        <Button onClick={submitForm} variant="contained" size="large">
-          Submit
-        </Button>
-      </div>
+            <TextField
+              id="outlined-basic"
+              label="Pickup Location*"
+              variant="outlined"
+              onChange={fPickupLocation}
+              value={pickupLocation}
+            />
+            <TextField
+              id="outlined-basic"
+              label="Contact"
+              variant="outlined"
+              onChange={fContact}
+              value={contact}
+            />
+          </Box>
+
+          <Stack>
+            <label htmlFor="icon-button-file">
+              <Input
+                accept="image/*"
+                id="icon-button-file"
+                type="file"
+                onChange={handleImageAsFile}
+              />
+              <IconButton
+                color="primary"
+                aria-label="upload picture"
+                component="span"
+                size="large"
+              >
+                <PhotoCamera size="large" />
+              </IconButton>
+            </label>
+          </Stack>
+          <Button onClick={submitForm} variant="contained" size="large">
+            Submit
+          </Button>
+        </div>
+      </center>
     </div>
   );
 }
